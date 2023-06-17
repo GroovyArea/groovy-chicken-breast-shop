@@ -8,6 +8,5 @@ import org.springframework.http.HttpStatus
 class GroovyChickenBreastShopApplication
 
 fun main(args: Array<String>) {
-    HttpStatus.BAD_REQUEST
     runApplication<GroovyChickenBreastShopApplication>(*args)
 }
