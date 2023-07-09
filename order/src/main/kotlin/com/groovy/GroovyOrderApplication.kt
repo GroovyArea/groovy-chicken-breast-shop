@@ -1,11 +1,12 @@
-package com.groovychickenbreastshop
+package com.groovy
 
 import org.springframework.boot.autoconfigure.SpringBootApplication
 import org.springframework.boot.runApplication
 
 @SpringBootApplication
-class GroovyChickenBreastShopApplication
+class GroovyOrderApplication {
+}
 
 fun main(args: Array<String>) {
-    runApplication<GroovyChickenBreastShopApplication>(*args)
+    runApplication<GroovyOrderApplication>(*args)
 }
