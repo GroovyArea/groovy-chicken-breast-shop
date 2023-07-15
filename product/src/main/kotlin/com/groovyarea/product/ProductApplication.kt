@@ -1,12 +1,11 @@
-package com.groovy
+package com.groovyarea.product
 
 import org.springframework.boot.autoconfigure.SpringBootApplication
 import org.springframework.boot.runApplication
 
 @SpringBootApplication
-class GroovyProductApplication {
-}
+class ProductApplication
 
 fun main(args: Array<String>) {
-    runApplication<GroovyProductApplication>(*args)
+    runApplication<ProductApplication>(*args)
 }
