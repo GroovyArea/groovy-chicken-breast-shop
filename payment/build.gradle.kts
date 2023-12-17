@@ -1,9 +1,10 @@
+import org.gradle.api.tasks.testing.logging.TestLogEvent
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
     id("org.springframework.boot") version Dependency.springBootVersion
-    id("io.spring.dependency-management") version "1.1.0"
-    id("io.gitlab.arturbosch.detekt") version "1.22.0"
+    id("io.spring.dependency-management") version Dependency.dependencyManagementVersion
+    id("io.gitlab.arturbosch.detekt") version Dependency.detektVersion
 
     kotlin("jvm") version Dependency.kotlinVersion
     kotlin("plugin.spring") version Dependency.kotlinVersion
@@ -12,22 +13,19 @@ plugins {
     kotlin("kapt") version Dependency.kotlinVersion
 }
 
+group = "com.groovyarea.payment"
+version = Constant.VERSION
+java.sourceCompatibility = JavaVersion.toVersion(Dependency.targetJvmVersion)
+
 configurations {
     compileOnly {
         extendsFrom(configurations.annotationProcessor.get())
     }
 }
 
-group = "com.groovy.payment"
-version = Constant.VERSION
-
-java {
-    sourceCompatibility = JavaVersion.VERSION_17
-}
-
-configurations {
-    compileOnly {
-        extendsFrom(configurations.annotationProcessor.get())
+dependencyManagement {
+    imports {
+        mavenBom("org.springframework.cloud:spring-cloud-dependencies:${Dependency.springCloudVersion}")
     }
 }
 
@@ -80,15 +78,25 @@ dependencies {
 
 }
 
-tasks.withType<KotlinCompile> {
-    kotlinOptions {
-        freeCompilerArgs += "-Xjsr305=strict"
-        jvmTarget = Dependency.targetJvmVersion
+tasks {
+    withType<KotlinCompile> {
+        kotlinOptions {
+            freeCompilerArgs = listOf("-Xjsr305=strict")
+            jvmTarget = Dependency.targetJvmVersion
+        }
     }
-}
 
-tasks.withType<Test> {
-    useJUnitPlatform()
+    withType<Test> {
+        useJUnitPlatform()
+
+        testLogging {
+            events(TestLogEvent.STANDARD_OUT, TestLogEvent.STANDARD_ERROR)
+
+            showStandardStreams = true
+            showCauses = true
+            showStackTraces = true
+        }
+    }
 }
 
 allOpen {
