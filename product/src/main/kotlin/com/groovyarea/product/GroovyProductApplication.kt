@@ -4,8 +4,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication
 import org.springframework.boot.runApplication
 
 @SpringBootApplication
-class ProductApplication
+class GroovyProductApplication
 
 fun main(args: Array<String>) {
-    runApplication<ProductApplication>(*args)
+    runApplication<GroovyProductApplication>(*args)
 }

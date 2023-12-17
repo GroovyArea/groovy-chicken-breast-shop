@@ -1,5 +1,4 @@
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
-import org.jetbrains.kotlin.kapt3.base.Kapt.kapt
 
 plugins {
     id("org.springframework.boot") version Dependency.springBootVersion
@@ -13,7 +12,7 @@ plugins {
     kotlin("kapt") version Dependency.kotlinVersion
 }
 
-group = "com.groovyarea"
+group = "com.groovyarea.product"
 version = Constant.VERSION
 
 java {
