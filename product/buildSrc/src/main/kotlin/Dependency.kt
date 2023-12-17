@@ -1,7 +1,7 @@
 object Dependency {
     const val targetJvmVersion = "17"
     const val kotlinVersion = "1.7.22"
-    const val springBootVersion = "3.2.0"
+    const val springBootVersion = "3.1.0"
     const val dependencyManagementVersion = "1.1.0"
 
     const val detektVersion = "1.22.0"

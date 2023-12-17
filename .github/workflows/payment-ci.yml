@@ -5,7 +5,7 @@ on:
       - main
 
 jobs:
-  product-build:
+  payment-build:
     runs-on: ubuntu-latest
     env:
       working-directory: payment
@@ -29,7 +29,7 @@ jobs:
         run: ./gradlew -s build
         working-directory: ${{ env.working-directory }}
 
-  product-lint:
+  payment-lint:
     runs-on: ubuntu-latest
     env:
       working-directory: product
