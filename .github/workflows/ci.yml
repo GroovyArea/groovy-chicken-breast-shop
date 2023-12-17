@@ -8,7 +8,7 @@ jobs:
   product-build:
     runs-on: ubuntu-latest
     env:
-      working-directory: /product
+      working-directory: ../product
 
     steps:
       #      - name: Check Current Working Directory
