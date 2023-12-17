@@ -8,6 +8,10 @@ jobs:
   product-build:
     runs-on: ubuntu-latest
     steps:
+      - name: Check Current Working Directory
+        run: |
+            echo "Current Working Directory: $(pwd)"
+
       - name: move to Product
         run: cd product
 
