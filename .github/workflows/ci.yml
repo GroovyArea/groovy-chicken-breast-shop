@@ -13,7 +13,7 @@ jobs:
             echo "Current Working Directory: $(pwd)"
 
       - name: move to Product
-        run: cd product
+        run: cd /home/runner/work/groovy-chicken-breast-shop/groovy-chicken-breast-shop/product
 
       - uses: actions/checkout@v2
         with:
