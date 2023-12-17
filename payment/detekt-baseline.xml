@@ -1,0 +1,10 @@
+<?xml version="1.0" ?>
+<SmellBaseline>
+  <ManuallySuppressedIssues></ManuallySuppressedIssues>
+  <CurrentIssues>
+    <ID>SpreadOperator:GroovyPaymentApplication.kt$(*args)</ID>
+    <ID>UnnecessaryAbstractClass:BaseEntity.kt$BaseEntity$BaseEntity</ID>
+    <ID>UnusedPrivateMember:GlobalExceptionHandler.kt$GlobalExceptionHandler$request: ServerHttpRequest</ID>
+    <ID>UnusedPrivateMember:MetaCode.kt$MetaCode$private var code: String</ID>
+  </CurrentIssues>
+</SmellBaseline>

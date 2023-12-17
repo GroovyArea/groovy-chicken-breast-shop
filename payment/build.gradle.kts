@@ -1,11 +1,21 @@
+import org.gradle.api.tasks.testing.logging.TestLogEvent
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
-    id("org.springframework.boot") version "3.1.1"
-    id("io.spring.dependency-management") version "1.1.0"
-    kotlin("jvm") version "1.8.22"
-    kotlin("plugin.spring") version "1.8.22"
+    id("org.springframework.boot") version Dependency.springBootVersion
+    id("io.spring.dependency-management") version Dependency.dependencyManagementVersion
+    id("io.gitlab.arturbosch.detekt") version Dependency.detektVersion
+
+    kotlin("jvm") version Dependency.kotlinVersion
+    kotlin("plugin.spring") version Dependency.kotlinVersion
+    kotlin("plugin.jpa") version Dependency.kotlinVersion
+    kotlin("plugin.allopen") version Dependency.kotlinVersion
+    kotlin("kapt") version Dependency.kotlinVersion
 }
+
+group = "com.groovyarea.payment"
+version = Constant.VERSION
+java.sourceCompatibility = JavaVersion.toVersion(Dependency.targetJvmVersion)
 
 configurations {
     compileOnly {
@@ -13,36 +23,90 @@ configurations {
     }
 }
 
-group = "com.groovy"
-version = "0.0.1-SNAPSHOT"
+dependencyManagement {
+    imports {
+        mavenBom("org.springframework.cloud:spring-cloud-dependencies:${Dependency.springCloudVersion}")
+    }
+}
 
 repositories {
     mavenCentral()
 }
 
+apply(plugin = "kotlin-kapt")
+
 dependencies {
-    implementation("org.springframework.boot:spring-boot-starter-data-mongodb-reactive")
-    implementation("org.springframework.boot:spring-boot-starter-data-redis-reactive")
+
+    // spring
     implementation("org.springframework.boot:spring-boot-starter-webflux")
-    implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
-    implementation("io.projectreactor.kotlin:reactor-kotlin-extensions")
+
+    // spring reactive mongo
+    implementation("org.springframework.boot:spring-boot-starter-data-mongodb-reactive")
+
+    // spring reactive redis
+    implementation("org.springframework.boot:spring-boot-starter-data-redis-reactive")
+
+    // detekt
+    detektPlugins("io.gitlab.arturbosch.detekt:detekt-formatting:1.22.0")
+
+    // mapstruct
+    implementation("org.mapstruct:mapstruct:1.5.4.Final")
+    kapt("org.mapstruct:mapstruct-processor:1.5.4.Final")
+
+    // kotlin
     implementation("org.jetbrains.kotlin:kotlin-reflect")
+    implementation("org.jetbrains.kotlin:kotlin-reflect")
+    implementation("io.projectreactor.kotlin:reactor-kotlin-extensions")
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-reactor")
-    implementation("org.springframework.kafka:spring-kafka")
-    developmentOnly("org.springframework.boot:spring-boot-devtools")
+
     annotationProcessor("org.springframework.boot:spring-boot-configuration-processor")
-    testImplementation("org.springframework.boot:spring-boot-starter-test")
+
+    // test
+    testImplementation("org.springframework.boot:spring-boot-starter-test") {
+        exclude(group = "org.junit.vintage", module = "junit-vintage-engine")
+    }
     testImplementation("io.projectreactor:reactor-test")
-    testImplementation("org.springframework.kafka:spring-kafka-test")
+    testImplementation("org.mockito.kotlin:mockito-kotlin:4.1.0")
+    testImplementation("org.mockito:mockito-inline:5.2.0")
+
+    // kotest
+    testImplementation("io.kotest:kotest-runner-junit5:${Dependency.kotestVersion}")
+    testImplementation("io.kotest.extensions:kotest-extensions-spring:${Dependency.kotestSprintExtensions}")
+    testImplementation("io.mockk:mockk:${Dependency.mockkVersion}")
+
+    kaptTest("org.mapstruct:mapstruct-processor:1.5.4.Final")
+
 }
 
-tasks.withType<KotlinCompile> {
-    kotlinOptions {
-        freeCompilerArgs += "-Xjsr305=strict"
-        jvmTarget = "17"
+tasks {
+    withType<KotlinCompile> {
+        kotlinOptions {
+            freeCompilerArgs = listOf("-Xjsr305=strict")
+            jvmTarget = Dependency.targetJvmVersion
+        }
+    }
+
+    withType<Test> {
+        useJUnitPlatform()
+
+        testLogging {
+            events(TestLogEvent.STANDARD_OUT, TestLogEvent.STANDARD_ERROR)
+
+            showStandardStreams = true
+            showCauses = true
+            showStackTraces = true
+        }
     }
 }
 
-tasks.withType<Test> {
-    useJUnitPlatform()
+allOpen {
+    annotation("org.springframework.data.mongodb.core.mapping.Document")
+}
+
+noArg {
+    annotation("org.springframework.data.mongodb.core.mapping.Document")
+}
+
+detekt {
+    autoCorrect = true
 }

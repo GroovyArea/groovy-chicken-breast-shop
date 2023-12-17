@@ -1,0 +1,57 @@
+name: CI
+on:
+  push:
+    branches-ignore:
+      - main
+
+jobs:
+  product-build:
+    runs-on: ubuntu-latest
+    env:
+      working-directory: product
+
+    steps:
+
+      - uses: actions/checkout@v3
+        with:
+          submodules: true
+
+      - name: Set up JDK
+        uses: actions/setup-java@v3
+        with:
+          distribution: 'temurin'
+          java-version: '17'
+
+      - uses: burrunan/gradle-cache-action@v1
+        name: Cache .gradle
+
+      - name: Build
+        run: ./gradlew -s build
+        working-directory: ${{ env.working-directory }}
+
+  product-lint:
+    runs-on: ubuntu-latest
+    env:
+      working-directory: product
+
+    steps:
+
+      - uses: actions/checkout@v3
+        with:
+          submodules: true
+      - name: Set up JDK
+        uses: actions/setup-java@v3
+        with:
+          distribution: 'temurin'
+          java-version: '17'
+
+      - name: Validate Gradle wrapper
+        uses: gradle/wrapper-validation-action@e6e38bacfdf1a337459f332974bb2327a31aaf4b
+
+      - uses: burrunan/gradle-cache-action@v1
+        name: Cache .gradle
+
+      - name: Lint
+        run: |
+          ./gradlew detekt
+        working-directory: ${{ env.working-directory }}
