@@ -3,18 +3,19 @@ on:
   push:
     branches-ignore:
       - main
+    paths:
+      - "product/**"
 
 jobs:
   product-build:
     runs-on: ubuntu-latest
-    defaults:
-      run:
-        working-directory: ./product
+    env:
+      working-directory: ./groovy-chicken-breast-shop/product
 
     steps:
-      - name: Check Current Working Directory
-        run: |
-            echo "Current Working Directory: $(pwd)"
+      #      - name: Check Current Working Directory
+      #        run: |
+      #            echo "Current Working Directory: $(pwd)"
 
       - uses: actions/checkout@v2
         with:
@@ -30,6 +31,7 @@ jobs:
 
       - name: Build
         run: ./gradlew -s build -x test
+        working-directory: ${{ env.working-directory }}
 
   product-lint:
     runs-on: ubuntu-latest
