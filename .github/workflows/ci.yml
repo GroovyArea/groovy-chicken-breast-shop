@@ -5,9 +5,12 @@ on:
       - main
 
 jobs:
-  build:
+  product-build:
     runs-on: ubuntu-latest
     steps:
+      - name: move to Product
+        run: cd product
+
       - uses: actions/checkout@v2
         with:
           submodules: true
@@ -23,9 +26,12 @@ jobs:
       - name: Build
         run: ./gradlew -s build -x test
 
-  lint:
+  product-lint:
     runs-on: ubuntu-latest
     steps:
+      - name: move to Product
+        run: cd product
+
       - uses: actions/checkout@v2
         with:
           submodules: true
@@ -45,10 +51,13 @@ jobs:
         run: |
           ./gradlew detekt
 
-  test:
+  product-test:
     runs-on: ubuntu-latest
     environment: test
     steps:
+      - name: move to Product
+        run: cd product
+
       - uses: actions/checkout@v2
         with:
           submodules: true
