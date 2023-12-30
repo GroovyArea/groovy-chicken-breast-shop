@@ -1,4 +1,4 @@
-package com.groovyarea.global.entity
+package com.groovyarea.global.entity.document
 
 import org.springframework.data.annotation.CreatedDate
 import org.springframework.data.annotation.Id
@@ -7,11 +7,13 @@ import org.springframework.data.mongodb.core.mapping.Field
 import org.springframework.data.mongodb.core.mapping.FieldType
 import java.time.LocalDateTime
 
-open class BaseDocumentEntity {
+typealias ID = String
+
+open class BaseDocument {
 
     @Id
     @Field("_id", targetType = FieldType.OBJECT_ID)
-    var objectId: String? = null
+    var id: ID? = null
 
     @Field("created_at")
     @CreatedDate
