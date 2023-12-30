@@ -26,3 +26,9 @@
 - 메시지 브로커 : Kafka
 - 데이터베이스 : Mongodb, Redis
 - 컨테이너 툴 : Docker
+
+## 프로젝트 설정
+
+- docker-compose 실행
+  - `docker-compose -f docker/docker-compose.yaml up -d`
+- 기타 Application 실행
