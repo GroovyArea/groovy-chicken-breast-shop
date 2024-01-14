@@ -5,7 +5,7 @@ on:
       - main
 
 jobs:
-  product-build:
+  cart-build:
     runs-on: ubuntu-latest
     env:
       working-directory: cart
@@ -27,7 +27,7 @@ jobs:
         run: ./gradlew -s build --stacktrace --no-daemon
         working-directory: ${{ env.working-directory }}
 
-  product-lint:
+  cart-lint:
     runs-on: ubuntu-latest
     env:
       working-directory: product
