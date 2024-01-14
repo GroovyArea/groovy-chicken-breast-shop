@@ -8,6 +8,7 @@ import com.groovyarea.product.domain.enumerate.ItemStatus
 import org.springframework.data.mongodb.core.index.Indexed
 import org.springframework.data.mongodb.core.mapping.Document
 import org.springframework.data.mongodb.core.mapping.Field
+import java.util.UUID
 
 @JsonNaming(PropertyNamingStrategies.SnakeCaseStrategy::class)
 @Document(collection = "item")
@@ -25,13 +26,18 @@ data class Item(
     var content: String,
 
     @Field(name = "status")
-    var status: ItemStatus,
+    var status: ItemStatus = ItemStatus.ON_SALE,
 
     @Indexed
     @Field(name = "iid")
-    var iid: String,
+    var iid: String = UUID.randomUUID().toString(),
 
     @Indexed
     @Field(name = "category")
     var category: ChickenCategories,
-) : BaseDocument()
+) : BaseDocument() {
+
+    suspend fun delete() {
+        this.status = ItemStatus.EXTINCTION
+    }
+}
