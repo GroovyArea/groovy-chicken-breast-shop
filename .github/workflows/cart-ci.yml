@@ -1,0 +1,48 @@
+name: CI
+on:
+  push:
+    branches-ignore:
+      - main
+
+jobs:
+  cart-build:
+    runs-on: ubuntu-latest
+    env:
+      working-directory: cart
+
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          submodules: true
+
+      - name: Set up JDK
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'zulu'
+          java-version: '21'
+          cache: 'gradle'
+
+      - name: Build
+        run: ./gradlew -s build --stacktrace --no-daemon
+        working-directory: ${{ env.working-directory }}
+
+  cart-lint:
+    runs-on: ubuntu-latest
+    env:
+      working-directory: cart
+
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          submodules: true
+      - name: Set up JDK
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'zulu'
+          java-version: '21'
+          cache: 'gradle'
+
+      - name: Lint
+        run: |
+          ./gradlew detekt --no-daemon
+        working-directory: ${{ env.working-directory }}
