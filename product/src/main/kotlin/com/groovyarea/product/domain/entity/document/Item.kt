@@ -3,7 +3,9 @@ package com.groovyarea.product.domain.entity.document
 import com.fasterxml.jackson.databind.PropertyNamingStrategies
 import com.fasterxml.jackson.databind.annotation.JsonNaming
 import com.groovyarea.global.entity.document.BaseDocument
+import com.groovyarea.product.domain.enumerate.ChickenCategories
 import com.groovyarea.product.domain.enumerate.ItemStatus
+import org.springframework.data.mongodb.core.index.Indexed
 import org.springframework.data.mongodb.core.mapping.Document
 import org.springframework.data.mongodb.core.mapping.Field
 
@@ -25,9 +27,11 @@ data class Item(
     @Field(name = "status")
     var status: ItemStatus,
 
+    @Indexed
     @Field(name = "iid")
     var iid: String,
 
-    @Field(name = "cid")
-    var cid: String,
+    @Indexed
+    @Field(name = "category")
+    var category: ChickenCategories,
 ) : BaseDocument()
