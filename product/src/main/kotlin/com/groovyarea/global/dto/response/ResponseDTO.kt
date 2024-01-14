@@ -16,6 +16,8 @@ data class ResponseDTO<T>(
 
         fun <T> success(data: T? = null): ResponseDTO<T> = success(MetaCode.SUCCESS, data)
 
+        fun <T> created(data: T? = null) = ResponseDTO(meta = Meta(type = MetaCode.CREATED), data = data)
+
         fun errorResponse(status: HttpStatus, errorMessage: String?): ResponseDTO<Nothing> {
             val metaCode = MetaCode.valueFrom(status)
             return ResponseDTO(

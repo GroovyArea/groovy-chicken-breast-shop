@@ -1,9 +1,11 @@
 package com.groovyarea.product.domain.mapper
 
+import com.groovyarea.product.application.dto.request.ItemRegisterRequestDTO
 import com.groovyarea.product.application.dto.response.ItemDetailResponseDTO
 import com.groovyarea.product.application.dto.response.ItemListResponseDTO
 import com.groovyarea.product.domain.entity.document.Item
 import org.mapstruct.Mapper
+import org.mapstruct.Mapping
 import org.mapstruct.MappingConstants
 import org.mapstruct.NullValuePropertyMappingStrategy
 import org.mapstruct.ReportingPolicy
@@ -29,4 +31,9 @@ interface ItemMapper {
     fun convertToItemListResponseDTO(
         item: Item
     ): ItemListResponseDTO
+
+    @Mapping(target = "iid", expression = "java(java.util.UUID.randomUUID().toString())")
+    fun convertToItem(
+        itemRegisterRequestDTO: ItemRegisterRequestDTO,
+    ): Item
 }
