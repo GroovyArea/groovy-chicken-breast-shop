@@ -10,9 +10,10 @@ data class ResponseDTO<T>(
     companion object {
         fun <T> success(meta: Meta, data: T? = null): ResponseDTO<T> = ResponseDTO(meta, data)
         fun <T> success(metaCode: MetaCode, data: T? = null): ResponseDTO<T> = success(
-            Meta(code = metaCode.code, type = metaCode),
+            Meta(type = metaCode, code = metaCode.code),
             data
         )
+
         fun <T> success(data: T? = null): ResponseDTO<T> = success(MetaCode.SUCCESS, data)
 
         fun errorResponse(status: HttpStatus, errorMessage: String?): ResponseDTO<Nothing> {
@@ -20,8 +21,8 @@ data class ResponseDTO<T>(
             return ResponseDTO(
                 data = null,
                 meta = Meta(
-                    code = metaCode.code,
                     type = metaCode,
+                    code = metaCode.code,
                     message = errorMessage
                 ),
             )
