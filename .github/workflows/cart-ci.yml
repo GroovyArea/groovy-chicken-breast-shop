@@ -33,7 +33,6 @@ jobs:
       working-directory: product
 
     steps:
-
       - uses: actions/checkout@v3
         with:
           submodules: true
@@ -46,5 +45,5 @@ jobs:
 
       - name: Lint
         run: |
-          ./gradlew detekt
+          ./gradlew detekt --no-daemon
         working-directory: ${{ env.working-directory }}
