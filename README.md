@@ -20,7 +20,7 @@
 - 아키텍처 : Clean Architecture, Domain Driven Design
 
 ## 진행할 프로젝트 기술 스택
-- 언어 : Kotlin, JDK 17, Coroutine
+- 언어 : Kotlin, JDK 21, Coroutine
 - 프레임워크 : Spring Webflux, Spring Data Reactive Mongo, Spring Data Redis
 - 라이브러리 : Spring Kafka, MapStruct
 - 메시지 브로커 : Kafka
