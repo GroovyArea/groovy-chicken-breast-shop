@@ -18,7 +18,4 @@ object Dependency {
     const val mockkVersion = "1.13.5"
 
     const val restdocsApiSpecVersion = "0.18.2"
-
-    const val jjwtVersion = "0.11.5"
-
 }

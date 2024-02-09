@@ -50,8 +50,8 @@ dependencies {
     detektPlugins("io.gitlab.arturbosch.detekt:detekt-formatting:1.22.0")
 
     // mapstruct
-    implementation("org.mapstruct:mapstruct:1.5.4.Final")
-    kapt("org.mapstruct:mapstruct-processor:1.5.4.Final")
+    implementation("org.mapstruct:mapstruct:1.5.5.Final")
+    kapt("org.mapstruct:mapstruct-processor:1.5.5.Final")
 
     // kotlin
     implementation("org.jetbrains.kotlin:kotlin-reflect")
@@ -74,7 +74,7 @@ dependencies {
     testImplementation("io.kotest.extensions:kotest-extensions-spring:${Dependency.kotestSprintExtensions}")
     testImplementation("io.mockk:mockk:${Dependency.mockkVersion}")
 
-    kaptTest("org.mapstruct:mapstruct-processor:1.5.4.Final")
+    kaptTest("org.mapstruct:mapstruct-processor:1.5.5.Final")
 
 }
 
