@@ -7,5 +7,5 @@ import reactor.core.publisher.Mono
 
 interface CartRepository : ReactiveMongoRepository<Cart, ID> {
 
-    fun findByCid(cid: String): Mono<Cart>
+    fun findByCid(cid: String): Mono<Cart?>
 }

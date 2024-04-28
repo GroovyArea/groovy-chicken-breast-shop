@@ -13,7 +13,7 @@ open class BaseDocument {
 
     @Id
     @Field("_id", targetType = FieldType.OBJECT_ID)
-    var id: com.groovyarea.global.entity.document.ID? = null
+    var id: ID? = null
 
     @Field("created_at")
     @CreatedDate

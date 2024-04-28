@@ -9,13 +9,10 @@ object Dependency {
 
     const val springCloudVersion = "2022.0.3"
 
-    const val mySQLConnectorVersion = "8.0.32"
-
     const val querydslMongoDbVersion = "5.0.0"
 
     const val kotestVersion = "5.6.1"
     const val kotestSprintExtensions = "1.1.3"
     const val mockkVersion = "1.13.5"
 
-    const val restdocsApiSpecVersion = "0.18.2"
 }
